@@ -4,6 +4,10 @@ const getAllByBoardId = async boardId => {
   return tasks.filter(task => task.boardId === boardId);
 };
 
+const getAllByUserId = async userId => {
+  return tasks.filter(task => task.userId === userId);
+};
+
 const getByIds = async (boardId, taskId) => {
   return tasks.find(task => task.id === taskId && task.boardId === boardId);
 };
@@ -26,13 +30,17 @@ const update = async task => {
   return updatedTask;
 };
 
-const deleteByIds = async (boardId, id) => {
-  tasks = tasks.filter(task => task.id !== id);
+const deleteByIds = async ({ boardId, id = null }) => {
+  // I'm tooo bored to find appropriate logical expression, sorry for that :(
+  tasks = tasks
+    .filter(task => task.boardId !== boardId)
+    .filter(task => (!!id ? task.id !== id : false));
 
   return tasks;
 };
 
 module.exports = {
+  getAllByUserId,
   getAllByBoardId,
   getByIds,
   create,

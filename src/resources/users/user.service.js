@@ -1,4 +1,5 @@
 const usersRepo = require('./user.memory.repository');
+const tasksService = require('../tasks/task.service');
 const User = require('./user.model');
 
 const getAll = () => usersRepo.getAll();
@@ -17,7 +18,9 @@ const update = (id, userFields) => {
   return usersRepo.update(user);
 };
 
-const deleteById = id => {
+const deleteById = async id => {
+  await tasksService.clearUserId(id);
+
   return usersRepo.deleteById(id);
 };
 
