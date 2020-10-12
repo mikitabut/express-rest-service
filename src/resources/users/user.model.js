@@ -13,6 +13,18 @@ class User {
     this.password = password;
   }
 
+  setName(name = 'USER') {
+    this.name = name;
+  }
+
+  setLogin(login = 'user') {
+    this.login = login;
+  }
+
+  setPassword(password = 'P@55w0rd') {
+    this.password = password;
+  }
+
   static toResponse(user) {
     const { id, name, login } = user;
     return { id, name, login };
