@@ -31,10 +31,11 @@ const update = async task => {
 };
 
 const deleteByIds = async ({ boardId, id = null }) => {
-  // I'm tooo bored to find appropriate logical expression, sorry for that :(
-  tasks = tasks
-    .filter(task => task.boardId !== boardId)
-    .filter(task => (!!id ? task.id !== id : false));
+  if (id === null || id === undefined) {
+    tasks = tasks.filter(task => task.boardId !== boardId);
+  } else {
+    tasks = tasks.filter(task => task.id !== id && task.boardId === boardId);
+  }
 
   return tasks;
 };
