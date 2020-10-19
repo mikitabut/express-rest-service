@@ -12,14 +12,20 @@ const logger = winston.createLogger({
   ]
 });
 
-function requestsLogger(req, res, next) {
-  const logObj = {
-    URL: req.originalUrl,
-    QueryParams: req.queryParams || '',
-    Body: req.body
-  };
-  logger.info(logObj);
-  next();
+class Logger {
+  static getLogger() {
+    return logger;
+  }
+
+  static requestsLoggerMiddleware(req, res, next) {
+    const logObj = {
+      URL: req.originalUrl,
+      QueryParams: req.queryParams || '',
+      Body: req.body
+    };
+    logger.info(logObj);
+    next();
+  }
 }
 
-module.exports = { requestsLogger };
+module.exports = Logger;
